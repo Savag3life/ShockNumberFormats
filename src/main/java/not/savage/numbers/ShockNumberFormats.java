@@ -56,15 +56,20 @@ public class ShockNumberFormats extends JavaPlugin implements PacketListener {
     }
 
     private void fillMap() {
-        suffixMap.put("K", 3); suffixMap.put("k", 3);
-        suffixMap.put("M", 6); suffixMap.put("m", 6);
-        suffixMap.put("B", 9); suffixMap.put("b", 9);
-        suffixMap.put("T", 12); suffixMap.put("t", 12);
-        suffixMap.put("Q", 15); suffixMap.put("q", 15);
-        suffixMap.put("S", 18); suffixMap.put("s", 18);
-        suffixMap.put("O", 21); suffixMap.put("o", 21);
-        suffixMap.put("N", 24); suffixMap.put("n", 24);
-        suffixMap.put("D", 27); suffixMap.put("d", 27);
-        suffixMap.put("U", 30); suffixMap.put("u", 30);
+        suffixMap.put("K", 3); suffixMap.put("k", 3);    // 1000
+        suffixMap.put("M", 6); suffixMap.put("m", 6);    // 1000000
+        suffixMap.put("B", 9); suffixMap.put("b", 9);    // 1000000000
+        suffixMap.put("t", 12);                          // 1000000000000
+        suffixMap.put("q", 15);                          // 1000000000000000
+        suffixMap.put("Q", 18);                          // 1000000000000000000
+        suffixMap.put("s", 21);                          // 1000000000000000000000
+        suffixMap.put("S", 24);                          // 1000000000000000000000000
+        suffixMap.put("o", 27); suffixMap.put("O", 27);  // 1000000000000000000000000000
+        suffixMap.put("n", 30);  suffixMap.put("N", 30); // 1000000000000000000000000000000
+        suffixMap.put("d", 33);                          // 1000000000000000000000000000000000
+        suffixMap.put("U", 36); suffixMap.put("u", 36);  // 1000000000000000000000000000000000000
+        suffixMap.put("D", 39);                          // 1000000000000000000000000000000000000000
+        suffixMap.put("T", 42);                          // 1000000000000000000000000000000000000000000
+
     }
 }
