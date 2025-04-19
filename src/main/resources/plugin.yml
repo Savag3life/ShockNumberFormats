@@ -1,0 +1,6 @@
+main: not.savage.numbers.ShockNumberFormats
+version: 1.0.0
+api-version: 1.21
+name: ShockNumberFormats
+authors: [ Savage, SupremeVentures ]
+depend: [ packetevents ]
