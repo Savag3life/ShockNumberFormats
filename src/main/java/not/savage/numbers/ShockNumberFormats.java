@@ -17,7 +17,7 @@ public class ShockNumberFormats extends JavaPlugin implements PacketListener {
 
     private final HashMap<String, Integer> suffixMap = new HashMap<>();
 
-    private final Pattern numberFinder = Pattern.compile("(?<!\\d)(\\d+(?:\\.\\d+)?)([KkMmBbTtQqSsOoNnDdUu])");
+    private final Pattern numberFinder = Pattern.compile(" (?<!\\d)(\\d+(?:\\.\\d+)?)([KkMmBbTtQqSsOoNnDdUu])");
 
     @Override
     public void onEnable() {
@@ -50,7 +50,6 @@ public class ShockNumberFormats extends JavaPlugin implements PacketListener {
                 matcher.appendReplacement(result, fullString);
             }
         }
-
         matcher.appendTail(result);
         return result.toString();
     }
@@ -70,6 +69,5 @@ public class ShockNumberFormats extends JavaPlugin implements PacketListener {
         suffixMap.put("U", 36); suffixMap.put("u", 36);  // 1000000000000000000000000000000000000
         suffixMap.put("D", 39);                          // 1000000000000000000000000000000000000000
         suffixMap.put("T", 42);                          // 1000000000000000000000000000000000000000000
-
     }
 }
