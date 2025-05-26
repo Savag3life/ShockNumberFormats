@@ -40,24 +40,28 @@ public class CommandPacketIntercept implements PacketListener {
         if (event.getPacketType() == PacketType.Play.Client.CHAT_COMMAND_UNSIGNED) {
             WrapperPlayClientChatCommandUnsigned packet = new WrapperPlayClientChatCommandUnsigned(event);
             String command = packet.getCommand();
+            // Only handle commands which aren't blacklisted
             if (ignoredCommands.stream().anyMatch(command::startsWith)) {
                 return;
             }
             packet.setCommand(replaceNumbers(command));
+            // Mark the packet for re-encoding to ensure the changes take effect
             event.markForReEncode(true);
         }
     }
 
     private String replaceNumbers(final String command) {
-        Matcher matcher = detector.matcher(command);
-        StringBuilder result = new StringBuilder();
+        final Matcher matcher = detector.matcher(command);
+        final StringBuilder result = new StringBuilder();
         while (matcher.find()) {
-            BigDecimal base = new BigDecimal(matcher.group(1));
-            String suffix = matcher.group(2);
+            final BigDecimal base = new BigDecimal(matcher.group(1));
+            final String suffix = matcher.group(2);
             int exponent = suffixMap.getOrDefault(suffix, -1);
             if (exponent != -1) {
+                // If the exponent is valid, calculate the full number
                 BigDecimal full =  base.multiply(BigDecimal.TEN.pow(exponent));
                 String fullString = full.toPlainString();
+                // If the number is in scientific notation, convert it to a plain string
                 if (fullString.contains("E")) {
                     fullString = full.toBigInteger().toString();
                 }

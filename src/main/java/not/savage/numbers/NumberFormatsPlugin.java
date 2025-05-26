@@ -1,6 +1,8 @@
 package not.savage.numbers;
 
 import com.github.retrooper.packetevents.PacketEvents;
+import com.github.retrooper.packetevents.event.PacketEvent;
+import com.github.retrooper.packetevents.event.PacketListenerCommon;
 import com.github.retrooper.packetevents.event.PacketListenerPriority;
 import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
 import lombok.Getter;
@@ -14,6 +16,8 @@ import java.io.File;
 public class NumberFormatsPlugin extends JavaPlugin {
 
     @Getter private Config settings;
+    private boolean internalPacketEvents = false;
+    private PacketListenerCommon packetListener;
 
     @Override
     public void onLoad() {
@@ -21,6 +25,7 @@ public class NumberFormatsPlugin extends JavaPlugin {
         try {
             Class.forName("not.savage.numbers.shade.com.github.retrooper.packetevents.PacketEventsAPI");
             getLogger().info("Using shaded PacketEvents.");
+            internalPacketEvents = true;
             PacketEvents.setAPI(SpigotPacketEventsBuilder.build(this));
             PacketEvents.getAPI().load();
         } catch (ClassNotFoundException ignored) {
@@ -50,11 +55,16 @@ public class NumberFormatsPlugin extends JavaPlugin {
 
         getLogger().info("Setting up PacketEvents...");
         PacketEvents.getAPI().init();
-        PacketEvents.getAPI().getEventManager().registerListener(new CommandPacketIntercept(this), PacketListenerPriority.LOW);
+        packetListener = PacketEvents.getAPI().getEventManager().registerListener(new CommandPacketIntercept(this), PacketListenerPriority.LOW);
     }
 
     @Override
     public void onDisable() {
-        PacketEvents.getAPI().terminate();
+        if (internalPacketEvents) {
+            getLogger().info("Shutting down PacketEvents...");
+            PacketEvents.getAPI().terminate();
+        } else {
+            PacketEvents.getAPI().getEventManager().unregisterListener(packetListener);
+        }
     }
 }
