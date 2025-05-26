@@ -1,8 +1,10 @@
 # Shock Number Formats
-A simple but life altering change to the way large numbers can be handled on your server. Converting numbers in the suffixed format, for example:
-- `1.1B` to `1100000000`
-- `1.5M` to `1500000`
-- `6.8k` to `6800`
+A simple but life altering change to the way large numbers can be handled on your server. 
+
+Allows players to enter suffixed numbers like 1m, 1.1k, and 56.7b in any command for any plugin regardless of support. Simply add the jar, and all plugins will now support these formats in commands.
+- `/eco give Savage 1.1B` to `1100000000`
+- `/points give Notch 1.5M` to `1500000`
+- `/pay cra 6.8k` to `6800`
 
 The Default configuration includes the following formats:
 - Thousands, `K` or `k`
